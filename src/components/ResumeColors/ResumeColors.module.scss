@@ -1,0 +1,24 @@
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.item {
+    transition: transform .3s ease;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.05)
+    }
+}
+
+.color {
+    height: 200px;
+    border-radius: 20px;
+}
+
+.title {
+    text-align: center;
+    font-size: 24px;
+}

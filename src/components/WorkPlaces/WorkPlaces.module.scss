@@ -1,0 +1,21 @@
+.educationWrapper {
+    grid-column: 1 / 10;
+    border: 1px solid #b57dd4;
+}
+
+.legend {
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+}
+
+.garbage {
+    width: 22px;
+    margin-left: 10px;
+    transition: all .3s ease;
+    cursor: pointer;
+
+    &:hover {
+        fill: #fe3535
+    }
+}

@@ -1,0 +1,57 @@
+.button {
+    width: 100%;
+    padding: 15px 20px;
+    border-radius: 10px;
+    display: block;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.dark {
+    background: #27221f;
+    border: 1px solid transparent;
+    transition: all .3s ease;
+
+    &:hover {
+        background: transparent;
+        border: 1px solid #27221f;
+        color: #27221f;
+    }
+}
+
+.white {
+    background: #fff;
+    border: 1px solid #b57dd4;
+    transition: all .3s ease;
+    color: #000;
+
+    &:hover {
+        background: #b293d7;
+        border: 1px solid #b293d7;
+        color: #fff;
+    }
+}
+
+.transparent {
+    color: #000;
+    background: transparent;
+    border: 1px solid black;
+}
+
+.dotted {
+    border: 1px dashed #b293d7;
+    background: #fff;
+    color: #000;
+    display: flex;
+    transition: all 0.3s ease;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    &:hover {
+        color: #fff;
+        background: #b293d7;
+    }
+}
