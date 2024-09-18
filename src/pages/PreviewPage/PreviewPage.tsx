@@ -4,7 +4,7 @@ import s from './PreviewPage.module.scss'
 import { useLocation } from 'react-router-dom'
 import Button from '../../components/Button/Button'
 import { useReactToPrint } from 'react-to-print'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { FormFieldsValue } from '../../components/Form/Form.interfaces'
 
 const PreviewPage = () => {
@@ -16,6 +16,10 @@ const PreviewPage = () => {
 		content: () => resumeRef.current,
 		documentTitle: 'Resume',
 	})
+
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	}, [])
 
 	return (
 		<>
