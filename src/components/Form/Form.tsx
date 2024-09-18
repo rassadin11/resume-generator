@@ -32,7 +32,6 @@ const Form = () => {
 	const [file, setFile] = useState<string | ArrayBuffer | null>(null)
 	const [education, setEducation] = useState<IEducation[]>([])
 	const [workPlace, setWorkPlace] = useState<IWorkPlace[]>([])
-
 	const fileRef = useRef<HTMLInputElement | null>(null)
 	const skillsRef = useRef<HTMLTextAreaElement | null>(null)
 	const aboutMeRef = useRef<HTMLTextAreaElement | null>(null)
@@ -42,29 +41,13 @@ const Form = () => {
 
 	const navigate = useNavigate()
 
-	const handleDragOver = (
-		e: DragEvent<HTMLFormElement> | DragEvent<HTMLDivElement>
-	): void => {
-		e.preventDefault()
-		e.stopPropagation()
-
-		setDrag(true)
-	}
-
-	const handleDragLeave = (
-		e: DragEvent<HTMLFormElement> | DragEvent<HTMLDivElement>
-	): void => {
-		e.preventDefault()
-		e.stopPropagation()
-		setDrag(false)
-	}
-
 	const handleDrop = (
-		e: DragEvent<HTMLFormElement> | DragEvent<HTMLDivElement>
+		e: DragEvent<HTMLFormElement> | DragEvent<HTMLDivElement>,
+		isDrag: boolean
 	) => {
 		e.preventDefault()
 		e.stopPropagation()
-		setDrag(false)
+		setDrag(isDrag)
 
 		if (e.dataTransfer.files === null) return
 		else {
@@ -205,25 +188,23 @@ const Form = () => {
 		if (previousData.workPlace?.length) {
 			setWorkPlace(previousData.workPlace)
 		}
-	}, [inputRefs, previousData])
 
-	useEffect(() => {
-		console.log(education)
-	}, [education])
+		if (previousData.image) setFile(previousData.image)
+	}, [inputRefs, previousData])
 
 	return (
 		<form
 			className={cn(s.grid, drag && s.active)}
-			onDragOver={handleDragOver}
-			onDragLeave={handleDragLeave}
-			onDrop={handleDrop}
+			onDragOver={(e) => handleDrop(e, true)}
+			onDragLeave={(e) => handleDrop(e, false)}
+			onDrop={(e) => handleDrop(e, false)}
 			onSubmit={handleSubmit}
 		>
 			<div
 				className={cn(s.dropzone, drag && s.active)}
-				onDragOver={handleDragOver}
-				onDragLeave={handleDragLeave}
-				onDrop={handleDrop}
+				onDragOver={(e) => handleDrop(e, true)}
+				onDragLeave={(e) => handleDrop(e, false)}
+				onDrop={(e) => handleDrop(e, false)}
 			>
 				Drop your file here!
 			</div>
