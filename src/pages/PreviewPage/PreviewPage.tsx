@@ -2,10 +2,10 @@ import Resume from '../../components/Resume/Resume'
 import Title from '../../components/Title/Title'
 import s from './PreviewPage.module.scss'
 import { useLocation } from 'react-router-dom'
-import { FormFieldsValue } from '../../components/Form/Form'
 import Button from '../../components/Button/Button'
 import { useReactToPrint } from 'react-to-print'
 import { useRef } from 'react'
+import { FormFieldsValue } from '../../components/Form/Form.interfaces'
 
 const PreviewPage = () => {
 	const location = useLocation()

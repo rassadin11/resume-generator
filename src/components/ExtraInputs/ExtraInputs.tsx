@@ -2,8 +2,8 @@ import { ChangeEvent, createRef, RefObject, useEffect, useRef } from 'react'
 import Input from '../Input/Input'
 import s from './ExtraInputs.module.scss'
 import { ExtraInputsProps } from './ExtraInputs.props'
-import { IEducation, IWorkPlace } from '../Form/Form'
 import { getNormalDate } from '../../functions/validateDate'
+import { IEducation, IWorkPlace } from '../Form/Form.interfaces'
 
 function isWork(values: IEducation | IWorkPlace): values is IWorkPlace {
 	return (values as IWorkPlace).company !== undefined

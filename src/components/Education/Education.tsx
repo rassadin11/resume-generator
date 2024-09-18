@@ -1,10 +1,10 @@
 import ExtraInputs from '../ExtraInputs/ExtraInputs'
 import s from './Education.module.scss'
 import { EducationProps } from './Education.props'
-import { IEducation, IWorkPlace } from '../Form/Form'
 import { initialEducationInputs } from '../ExtraInputs/EducationInputs'
 import { MutableRefObject, RefObject } from 'react'
 import { getNormalDate } from '../../functions/validateDate'
+import { IEducation, IWorkPlace } from '../Form/Form.interfaces'
 
 const Education = ({ education, setEducation }: EducationProps) => {
 	const changeInputs = (item: IEducation | IWorkPlace) => {

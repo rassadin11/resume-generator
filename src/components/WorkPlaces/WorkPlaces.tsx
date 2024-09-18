@@ -1,10 +1,10 @@
-import { IEducation, IWorkPlace } from '../Form/Form'
 import { WorkPlacesProps } from './WorkPlaces.props'
 import s from './WorkPlaces.module.scss'
 import ExtraInputs from '../ExtraInputs/ExtraInputs'
 import { initialWorkInputs } from './WorkInputs'
 import { getNormalDate } from '../../functions/validateDate'
 import { MutableRefObject, RefObject } from 'react'
+import { IEducation, IWorkPlace } from '../Form/Form.interfaces'
 
 const WorkPlaces = ({ workPlace, setWorkPlace }: WorkPlacesProps) => {
 	const changeInputs = (item: IEducation | IWorkPlace) => {

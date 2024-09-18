@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import s from './ResumeColors.module.scss'
 import { MouseEvent, useEffect } from 'react'
-import { FormFieldsValue } from '../Form/Form'
+import { FormFieldsValue } from '../Form/Form.interfaces'
 
 interface Color {
 	showColor: string
