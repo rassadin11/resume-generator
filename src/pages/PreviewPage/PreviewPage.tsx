@@ -23,6 +23,7 @@ const PreviewPage = () => {
 
 			<div className={s.container}>
 				<Title className={s.center}>Результат</Title>
+				<div className={s.whiteBackground}></div>
 				<Resume data={state} ref={resumeRef} />
 				<div className={s.button}>
 					<Button color='white' onClick={generatePDF}>

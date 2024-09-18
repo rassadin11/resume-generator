@@ -4,6 +4,15 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     height: 1120px;
     word-wrap: break-word;
+
+    @media (max-width: 992px) {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -3;
+        height: 100vh;
+        overflow: hidden;
+    }
 }
 
 .sidebar {
@@ -53,7 +62,15 @@
 .profession {
     margin: 0;
     font-size: 22px;
-    margin-bottom: 10px;
+}
+
+.forMobile {
+    color: #fff;
+    text-align: center;
+    
+    @media (min-width: 992px) {
+        display: none;
+    }
 }
 
 .list {
