@@ -18,55 +18,18 @@ import { useNavigate } from 'react-router-dom'
 import plus from '../../assets/plus.svg'
 import Education from '../Education/Education'
 import WorkPlaces from '../WorkPlaces/WorkPlaces'
-
-export interface IEducation {
-	id: number
-	qualification: string
-	dateStart?: Date
-	dateEnd?: Date
-}
-
-export interface IWorkPlace {
-	id: number
-	position: string
-	company: string
-	description: string
-	dateStart?: Date
-	dateEnd?: Date
-}
-
-export interface FormFieldsValue {
-	name: string
-	profession: string
-	surname: string
-	email: string
-	phone: string
-	address: string
-	aboutMe: string
-	image: File | null
-	education?: IEducation[]
-	workPlace?: IWorkPlace[]
-	color?: string
-	colorTitle?: string
-	skills?: string[] | []
-}
+import {
+	FormFieldsValue,
+	IEducation,
+	initialFormFields,
+	IWorkPlace,
+} from './Form.interfaces'
 
 const Form = () => {
 	const [drag, setDrag] = useState<boolean>(false)
-	const [previousData, setPreviousData] = useState<FormFieldsValue>({
-		name: '',
-		profession: '',
-		surname: '',
-		email: '',
-		phone: '',
-		address: '',
-		aboutMe: '',
-		education: [],
-		workPlace: [],
-		skills: [],
-		image: null,
-	})
-	const [file, setFile] = useState<File | null>(null)
+	const [previousData, setPreviousData] =
+		useState<FormFieldsValue>(initialFormFields)
+	const [file, setFile] = useState<string | ArrayBuffer | null>(null)
 	const [education, setEducation] = useState<IEducation[]>([])
 	const [workPlace, setWorkPlace] = useState<IWorkPlace[]>([])
 
@@ -104,12 +67,22 @@ const Form = () => {
 		setDrag(false)
 
 		if (e.dataTransfer.files === null) return
-		else setFile(e.dataTransfer.files[0])
+		else {
+			const myFile = e.dataTransfer.files[0]
+			const reader = new FileReader()
+			reader.onloadend = () => setFile(reader.result)
+			reader.readAsDataURL(myFile)
+		}
 	}
 
 	const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
 		if (event.target.files === null) return
-		else setFile(event.target.files[0])
+		else {
+			const myFile = event.target.files[0]
+			const reader = new FileReader()
+			reader.onloadend = () => setFile(reader.result)
+			reader.readAsDataURL(myFile)
+		}
 	}
 
 	const addEducationClick = () => {
@@ -178,7 +151,6 @@ const Form = () => {
 		}
 
 		obj.image = file
-		console.log(obj.image, file)
 		obj.education = education
 		obj.workPlace = workPlace
 

@@ -5,6 +5,7 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     height: 1120px;
     padding: 20px;
+    word-wrap: break-word;
 }
 
 .sidebar {
@@ -20,6 +21,10 @@
 .title {
     font-size: 22px;
     margin-bottom: 0;
+}
+
+.image {
+    border-radius: 50%;
 }
 
 .text {
@@ -38,9 +43,11 @@
 
 .header {
     display: flex;
-    flex-direction: column;
     border-bottom: 1px solid #000;
+    justify-content: space-between;
     width: 100%;
+    padding-bottom: 20px;
+    align-items: center;
 }
 
 .profession {

@@ -24,14 +24,14 @@ const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
 				{!file ? (
 					<Suspense fallback={''}>
 						<div className={s.wrapper}>
-							<img src={photo} alt='Photo' className={s.photo} />
+							<img src={photo} alt='Ваше фото' className={s.photo} />
 							<p className={s.title}>Добавьте фотографию</p>
 						</div>
 					</Suspense>
 				) : (
 					<img
-						src={`${URL.createObjectURL(file)}`}
-						alt={file.name}
+						src={`${file}`}
+						alt={'Ваше фото'}
 						className={cn(s.preview, removeImage && s.remove)}
 						onClick={handleClick}
 					/>

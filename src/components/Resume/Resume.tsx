@@ -5,6 +5,7 @@ import WorkItem from '../WorkItem/WorkItem'
 import s from './Resume.module.scss'
 import { ResumeProps } from './Resume.props'
 import cn from 'classnames'
+import { IEducation, IWorkPlace } from '../Form/Form.interfaces'
 
 const Resume = forwardRef<HTMLDivElement, ResumeProps>(({ data }, ref) => {
 	const { colorInfo } = JSON.parse(localStorage.getItem('form')!)
@@ -53,7 +54,7 @@ const Resume = forwardRef<HTMLDivElement, ResumeProps>(({ data }, ref) => {
 					>
 						<p className={s.title}>Умения</p>
 						<ul className={s.list}>
-							{data.skills.map((item) => (
+							{data.skills.map((item: string) => (
 								<li key={item}>
 									{item.trim()[0].toUpperCase() + item.trim().slice(1)}
 								</li>
@@ -69,7 +70,9 @@ const Resume = forwardRef<HTMLDivElement, ResumeProps>(({ data }, ref) => {
 				>
 					<p className={s.title}>Образование</p>
 					{data.education &&
-						data.education.map((item) => <EducationInfo item={item} />)}
+						data.education.map((item: IEducation) => (
+							<EducationInfo item={item} />
+						))}
 				</div>
 			</aside>
 			<main
@@ -90,14 +93,22 @@ const Resume = forwardRef<HTMLDivElement, ResumeProps>(({ data }, ref) => {
 						</Title>
 						<p className={s.profession}>{data.profession}</p>
 					</div>
-					{data.image ? <img src={data.image.name} alt='Your photo' /> : ''}
+					{data.image ? (
+						<img
+							src={data.image as string}
+							alt='Your photo'
+							className={s.image}
+						/>
+					) : (
+						''
+					)}
 				</header>
 				<p className={cn(s.title, s.mainBlock)}>Обо мне</p>
 				<p className={s.text}>{data.aboutMe}</p>
 				{data.workPlace ? (
 					<>
 						<p className={cn(s.title, s.mainBlock)}>Опыт работы</p>
-						{data.workPlace.map((item) => (
+						{data.workPlace.map((item: IWorkPlace) => (
 							<WorkItem data={item} key={item.id} color={colorInfo.dateColor} />
 						))}
 					</>
