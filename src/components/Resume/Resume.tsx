@@ -8,9 +8,9 @@ import cn from 'classnames'
 import { IEducation, IWorkPlace } from '../Form/Form.interfaces'
 
 const Resume = forwardRef<HTMLDivElement, ResumeProps>(({ data }, ref) => {
-	const { colorInfo } = JSON.parse(localStorage.getItem('form')!)
+	const colorInfo = data && data.colorInfo
 
-	if (data === undefined) {
+	if (!colorInfo) {
 		return (
 			<div>
 				Что-то пошло не по плану. Вернись на главную страницу и попробуй ввести
@@ -69,11 +69,14 @@ const Resume = forwardRef<HTMLDivElement, ResumeProps>(({ data }, ref) => {
 							color: colorInfo.color,
 						}}
 					>
-						<p className={s.title}>Образование</p>
-						{data.education &&
-							data.education.map((item: IEducation) => (
-								<EducationInfo item={item} />
-							))}
+						{data.education && (
+							<div>
+								<p className={s.title}>Образование</p>
+								{data.education.map((item: IEducation) => (
+									<EducationInfo key={item.id} item={item} />
+								))}
+							</div>
+						)}
 					</div>
 				</aside>
 				<main
@@ -106,14 +109,14 @@ const Resume = forwardRef<HTMLDivElement, ResumeProps>(({ data }, ref) => {
 					</header>
 					<p className={cn(s.title, s.mainBlock)}>Обо мне</p>
 					<p className={s.text}>{data.aboutMe}</p>
-					{data.workPlace ? (
+					{data.workPlace && data.workPlace.length > 0 ? (
 						<>
 							<p className={cn(s.title, s.mainBlock)}>Опыт работы</p>
 							{data.workPlace.map((item: IWorkPlace) => (
 								<WorkItem
 									data={item}
 									key={item.id}
-									color={colorInfo.dateColor}
+									color={colorInfo.dateColor ? colorInfo.dateColor : ''}
 								/>
 							))}
 						</>

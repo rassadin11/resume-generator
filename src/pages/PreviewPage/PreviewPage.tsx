@@ -6,10 +6,11 @@ import Button from '../../components/Button/Button'
 import { useReactToPrint } from 'react-to-print'
 import { useEffect, useRef } from 'react'
 import { FormFieldsValue } from '../../components/Form/Form.interfaces'
+import { palitra } from '../../components/ResumeColors/ResumeColors'
 
 const PreviewPage = () => {
 	const location = useLocation()
-	const state = location.state as FormFieldsValue | undefined
+	const state = location.state as (FormFieldsValue & palitra) | undefined
 	const resumeRef = useRef<HTMLDivElement>(null)
 
 	const generatePDF = useReactToPrint({
@@ -23,10 +24,18 @@ const PreviewPage = () => {
 
 	return (
 		<>
-			<div className={s.background}></div>
+			<div
+				className={s.background}
+				style={state?.colorInfo ? { background: `${state.colorInfo.fon}` } : {}}
+			></div>
 
 			<div className={s.container}>
-				<Title className={s.center}>Результат</Title>
+				<Title
+					className={s.center}
+					style={state?.colorInfo ? { color: `${state.colorInfo.color}` } : {}}
+				>
+					Результат
+				</Title>
 				<div className={s.whiteBackground}></div>
 				<Resume data={state} ref={resumeRef} />
 				<div className={s.button}>

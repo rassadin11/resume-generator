@@ -6,15 +6,6 @@
     width: 100vw;
     height: 70vh;
     z-index: -1;
-}
-
-.background::before{
-    content: "";
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
     background: linear-gradient(90deg, rgba(181,125,212,1) 0%, rgba(231,36,145,1) 100%);
 }
 
