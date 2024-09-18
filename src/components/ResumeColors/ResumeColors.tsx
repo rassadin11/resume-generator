@@ -17,17 +17,16 @@ interface Color {
 
 const colors: Color[] = [
 	{
-		showColor:
-			'linear-gradient(45deg, rgba(86,219,84,1) 0%, rgba(31,205,209,1) 100%)',
-		color: '#222222',
+		showColor: 'linear-gradient(-135deg, rgb(0, 8, 83), rgb(28, 181, 224))',
+		color: '#fff',
 		mainText: '#000',
 		backgroundColor:
-			'linear-gradient(45deg, rgba(86,219,84,1) 0%, rgba(31,205,209,1) 100%)',
+			'linear-gradient(-135deg, rgb(0, 8, 83), rgb(28, 181, 224))',
 		backgroundMainColor: '#fff',
 		dateColor: '#000',
-		title: 'Светло-зеленый градиент',
+		title: 'Небо',
 		borderSidebar: 'transparent',
-		borderMain: 'transparent',
+		borderMain: 'rgb(28, 181, 224)',
 	},
 	{
 		showColor: 'linear-gradient(45deg, #b94083 0%, #fc3464 100%)',
@@ -36,9 +35,9 @@ const colors: Color[] = [
 		backgroundColor: 'linear-gradient(45deg, #b94083 0%, #fc3464 100%)',
 		backgroundMainColor: '#fff',
 		dateColor: '#fc3464',
-		title: 'Красный градиент',
+		title: 'Красный закат',
 		borderSidebar: 'transparent',
-		borderMain: 'transparent',
+		borderMain: '#fc3464',
 	},
 	{
 		showColor:
@@ -49,9 +48,9 @@ const colors: Color[] = [
 			'linear-gradient(45deg, rgba(225,111,193,1) 0%, rgba(140,95,240,1) 100%)',
 		backgroundMainColor: '#fff',
 		dateColor: '#000',
-		title: 'Фиолетовый градиент',
+		title: 'Пурпурный',
 		borderSidebar: 'transparent',
-		borderMain: 'transparent',
+		borderMain: 'rgba(140,95,240,1)',
 	},
 	{
 		showColor:
@@ -74,7 +73,7 @@ const colors: Color[] = [
 		backgroundMainColor:
 			'linear-gradient(209deg, rgb(255 170 1), rgb(53 38 0))',
 		dateColor: '#fff',
-		title: 'Пчела',
+		title: 'Бентли',
 		borderSidebar: '#fff',
 		borderMain: '#fff',
 	},
