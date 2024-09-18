@@ -1,5 +1,3 @@
-
-
 export interface IEducation {
 	id: number
 	qualification: string

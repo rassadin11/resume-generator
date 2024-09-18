@@ -1,6 +1,6 @@
 import { HTMLAttributes, MutableRefObject, RefObject } from 'react';
-import { IEducation, IWorkPlace } from '../Form/Form';
 import { IEducationInputs } from './EducationInputs';
+import { IEducation, IWorkPlace } from '../Form/Form.interfaces';
 
 export interface ExtraInputsProps extends HTMLAttributes<HTMLDivElement> {
     typeOfInputs: {
