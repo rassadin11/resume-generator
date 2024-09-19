@@ -6,7 +6,7 @@ import Button from '../../components/Button/Button'
 import { useReactToPrint } from 'react-to-print'
 import { useEffect, useRef } from 'react'
 import { FormFieldsValue } from '../../components/Form/Form.interfaces'
-import { palitra } from '../../components/ResumeColors/ResumeColors'
+import { palitra } from '../../components/ResumeColors/ResumeColors.interfaces'
 
 const PreviewPage = () => {
 	const location = useLocation()
