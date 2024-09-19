@@ -1,15 +1,13 @@
 export interface palitra {
-	colorInfo?: {
-		color: string | undefined
-		mainText: string | undefined
-		fon: string | undefined
-		backgroundColor: string | undefined
-		backgroundMainColor: string | undefined
-		dateColor: string | undefined
-		title: string | undefined
-		borderSidebar: string | undefined
-		borderMain: string | undefined
-	}
+	color: string | undefined
+	mainText: string | undefined
+	fon: string | undefined
+	backgroundColor: string | undefined
+	backgroundMainColor: string | undefined
+	dateColor: string | undefined
+	title: string | undefined
+	borderSidebar: string | undefined
+	borderMain: string | undefined
 }
 
 interface Color {

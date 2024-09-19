@@ -10,7 +10,11 @@ import { palitra } from '../../components/ResumeColors/ResumeColors.interfaces'
 
 const PreviewPage = () => {
 	const location = useLocation()
-	const state = location.state as (FormFieldsValue & palitra) | undefined
+	const state = location.state as {
+		mainInfo: FormFieldsValue
+		colorInfo: palitra
+	}
+
 	const resumeRef = useRef<HTMLDivElement>(null)
 
 	const generatePDF = useReactToPrint({
@@ -26,18 +30,26 @@ const PreviewPage = () => {
 		<>
 			<div
 				className={s.background}
-				style={state?.colorInfo ? { background: `${state.colorInfo.fon}` } : {}}
+				style={
+					state?.colorInfo?.fon ? { background: `${state.colorInfo.fon}` } : {}
+				}
 			></div>
 
 			<div className={s.container}>
 				<Title
 					className={s.center}
-					style={state?.colorInfo ? { color: `${state.colorInfo.color}` } : {}}
+					style={
+						state?.colorInfo?.color ? { color: `${state.colorInfo.color}` } : {}
+					}
 				>
 					Результат
 				</Title>
 				<div className={s.whiteBackground}></div>
-				<Resume data={state} ref={resumeRef} />
+				<Resume
+					data={state.mainInfo}
+					colorInfo={state.colorInfo}
+					ref={resumeRef}
+				/>
 				<div className={s.button}>
 					<Button color='white' onClick={generatePDF}>
 						Сохранить

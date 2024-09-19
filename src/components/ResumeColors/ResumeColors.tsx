@@ -2,15 +2,18 @@ import { useNavigate } from 'react-router-dom'
 import s from './ResumeColors.module.scss'
 import { MouseEvent, useEffect } from 'react'
 import { FormFieldsValue } from '../Form/Form.interfaces'
-import { colors, palitra } from './ResumeColors'
+import { colors, palitra } from './ResumeColors.interfaces'
 
 const ResumeColors = () => {
 	const navigate = useNavigate()
 
 	const handleClick = (e: MouseEvent<HTMLDivElement>) => {
 		const obj: FormFieldsValue = JSON.parse(localStorage.getItem('form')!)
-		const result: FormFieldsValue & palitra = {
-			...obj,
+		const result: {
+			mainInfo: FormFieldsValue
+			colorInfo: palitra
+		} = {
+			mainInfo: obj,
 			colorInfo: {
 				color: e.currentTarget.dataset.color,
 				mainText: e.currentTarget.dataset.mainText,
@@ -25,7 +28,7 @@ const ResumeColors = () => {
 		}
 
 		localStorage.setItem(
-			'form',
+			'result',
 			JSON.stringify({
 				...result,
 			})
