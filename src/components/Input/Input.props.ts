@@ -1,3 +1,4 @@
+import { FormItem } from './../Form/FormData';
 import { ChangeEvent, HTMLAttributes } from 'react';
 
 export interface InputProps extends HTMLAttributes<HTMLLabelElement> {
@@ -5,6 +6,6 @@ export interface InputProps extends HTMLAttributes<HTMLLabelElement> {
     placeholder: string
     title: string
     required: boolean
-    type?: 'text' | 'password' | 'date' | 'email' | 'number'
+    type?: FormItem['type']
     handleChange?: (e: ChangeEvent<HTMLInputElement>) => void
 }

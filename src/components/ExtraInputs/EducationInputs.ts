@@ -1,10 +1,12 @@
+import { FormItem } from '../Form/FormData'
+
 export interface IEducationInputs {
 	id: number
 	placeholder: string
 	name: string
 	title: string
 	required: boolean
-	type?: "number" | "text" | "password" | "date" | "email"
+	type?: FormItem['type']
 }
 
 export const initialEducationInputs: IEducationInputs[] = [

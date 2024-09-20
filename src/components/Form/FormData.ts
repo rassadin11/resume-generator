@@ -1,12 +1,12 @@
 import s from './Form.module.scss'
 
-interface FormItem {
+export interface FormItem {
     id: number
     name: string
     title: string
     placeholder: string
-    type: "number" | "text" | "email" | "password" | "date"
     class: string
+    type: "number" | "text" | "email" | "password" | "date" | "tel"
 }
 
 export const FormData: FormItem[] = [
@@ -30,7 +30,7 @@ export const FormData: FormItem[] = [
         id: 3,
         name: 'email',
         title: "Email",
-        placeholder: "artem.rassadin.05@mail.ru",
+        placeholder: "test@gmail.com",
         type: 'email',
         class: s.fourth
     },
@@ -39,14 +39,14 @@ export const FormData: FormItem[] = [
         name: 'phone',
         title: "Номер телефона",
         placeholder: "89381014068",
-        type: 'text',
+        type: 'tel',
         class: s.fifth
     },
     {
         id: 5,
         name: 'address',
         title: "Адрес",
-        placeholder: "Saint-Petersburg",
+        placeholder: "Санкт-Петербург",
         type: 'text',
         class: s.sixth
     },
@@ -54,7 +54,7 @@ export const FormData: FormItem[] = [
         id: 6,
         name: 'profession',
         title: "Профессия",
-        placeholder: "Fron-end разработчик",
+        placeholder: "Front-end разработчик",
         type: 'text',
         class: s.seventh
     }
