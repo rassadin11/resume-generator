@@ -119,6 +119,7 @@ const Form = () => {
 
 			if (ref) {
 				const { value, name } = ref
+
 				if (name) {
 					obj[name] = value
 				}
@@ -157,19 +158,18 @@ const Form = () => {
 			const item = inputRefs.current[i].current
 
 			if (item && item.name) {
-				const attr = item.name as keyof FormFieldsValue
+				const attr = item.name as keyof Omit<
+					FormFieldsValue,
+					| 'color'
+					| 'image'
+					| 'colorTitle'
+					| 'aboutMe'
+					| 'skills'
+					| 'education'
+					| 'workPlace'
+				>
 
-				if (
-					attr !== 'color' &&
-					attr !== 'colorTitle' &&
-					attr !== 'image' &&
-					attr !== 'skills' &&
-					attr !== 'aboutMe' &&
-					attr !== 'education' &&
-					attr !== 'workPlace'
-				) {
-					item.value = previousData[attr]
-				}
+				item.value = previousData[attr]
 			}
 		})
 
