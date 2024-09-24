@@ -54,43 +54,33 @@ const ExtraInputs = ({
 	useEffect(() => {
 		if (!initialValues) return
 
-		if (!isWork(initialValues)) {
-			refs.current.map((item) => {
-				if (item.current !== null && !item.current.value) {
-					if (item.current.type !== 'date') {
-						item.current.value = initialValues[
-							item.current.name as keyof IEducation
-						] as string
-					} else {
-						if (initialValues[item.current.name as keyof IEducation]) {
-							item.current.value = getNormalDate(
-								new Date(
-									initialValues[item.current.name as keyof IEducation] as Date
-								)
-							)
-						}
+		const isWorkplace = isWork(initialValues)
+
+		refs.current.forEach((item) => {
+			if (item.current !== null && !item.current.value) {
+				const { name } = item.current
+
+				if (isWorkplace) {
+					const value = initialValues[name as keyof IWorkPlace]
+					if (!value) return
+
+					if (!(value instanceof Date)) {
+						item.current.value = value as string
+					} else if (value) {
+						item.current.value = getNormalDate(new Date(value as Date))
+					}
+				} else {
+					const value = initialValues[name as keyof IEducation]
+					if (!value) return
+
+					if (!(value instanceof Date)) {
+						item.current.value = value as string
+					} else if (value) {
+						item.current.value = getNormalDate(new Date(value as Date))
 					}
 				}
-			})
-		} else if (isWork(initialValues)) {
-			refs.current.map((item) => {
-				if (item.current !== null && !item.current.value) {
-					if (item.current.type !== 'date') {
-						item.current.value = initialValues[
-							item.current.name as keyof IWorkPlace
-						] as string
-					} else {
-						if (initialValues[item.current.name as keyof IWorkPlace]) {
-							item.current.value = getNormalDate(
-								new Date(
-									initialValues[item.current.name as keyof IWorkPlace] as Date
-								)
-							)
-						}
-					}
-				}
-			})
-		}
+			}
+		})
 	}, [])
 
 	return (

@@ -68,13 +68,15 @@ const Resume = forwardRef<HTMLDivElement, ResumeProps>(
 								color: colorInfo.color,
 							}}
 						>
-							{data.education && (
+							{data.education && data.education.length ? (
 								<div>
 									<p className={s.title}>Образование</p>
 									{data.education.map((item: IEducation) => (
 										<EducationInfo key={item.id} item={item} />
 									))}
 								</div>
+							) : (
+								''
 							)}
 						</div>
 					</aside>
