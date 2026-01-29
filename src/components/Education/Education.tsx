@@ -31,7 +31,7 @@ const Education = ({ education, setEducation }: EducationProps) => {
 			if (
 				initialValues.dateStart &&
 				new Date(val) < initialValues.dateStart &&
-				new Date(val).getFullYear() >= 1000
+				new Date(val).getFullYear() >= 1900
 			) {
 				alert('Дата конца обучения не может быть раньше его начала')
 

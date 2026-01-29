@@ -14,6 +14,9 @@ export interface IWorkPlace {
 	dateEnd?: Date
 }
 
+
+
+// initialize zustand store
 export interface FormFieldsValue {
 	name: string
 	profession: string
@@ -23,11 +26,30 @@ export interface FormFieldsValue {
 	address: string
 	aboutMe: string
 	image: string | ArrayBuffer | null
-	education?: IEducation[]
-	workPlace?: IWorkPlace[]
+	education: IEducation[]
+	workPlace: IWorkPlace[]
 	color?: string
 	colorTitle?: string
 	skills?: string[] | []
+	drag?: boolean
+}
+
+export interface FormFieldsActions {
+	// Actions
+	setName: (name: string) => void
+	setProfession: (profession: string) => void
+	setSurname: (surname: string) => void
+	setEmail: (email: string) => void
+	setPhone: (phone: string) => void
+	setAddress: (address: string) => void
+	setAboutMe: (aboutMe: string) => void
+	setImage: (image: string | ArrayBuffer | null) => void
+	setEducation: (education: IEducation[]) => void
+	setWorkPlace: (workPlace: IWorkPlace[]) => void
+	setSkills: (skills: string[]) => void
+	setDrag: (drag: boolean) => void
+	setField: (field: keyof Omit<FormFieldsValue, 'color' | 'colorTitle'>, value: any) => void
+	resetForm: () => void
 }
 
 export const initialFormFields: FormFieldsValue = {

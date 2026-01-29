@@ -12,7 +12,6 @@ import {
 	RefObject,
 	useEffect,
 	useRef,
-	useState,
 } from 'react'
 import { useNavigate } from 'react-router-dom'
 import plus from '../../assets/plus.svg'
@@ -20,18 +19,38 @@ import Education from '../Education/Education'
 import WorkPlaces from '../WorkPlaces/WorkPlaces'
 import {
 	FormFieldsValue,
-	IEducation,
-	initialFormFields,
-	IWorkPlace,
 } from './Form.interfaces'
+import { useZustand } from '../../zustand/zustand'
 
+// form
 const Form = () => {
-	const [drag, setDrag] = useState<boolean>(false)
-	const [previousData, setPreviousData] =
-		useState<FormFieldsValue>(initialFormFields)
-	const [file, setFile] = useState<string | ArrayBuffer | null>(null)
-	const [education, setEducation] = useState<IEducation[]>([])
-	const [workPlace, setWorkPlace] = useState<IWorkPlace[]>([])
+	const {
+		drag,
+		setDrag,
+		image,
+		setImage,
+		education,
+		setEducation,
+		workPlace,
+		setWorkPlace,
+		aboutMe,
+		setAboutMe,
+		skills,
+		setSkills,
+		name,
+		setName,
+		profession,
+		setProfession,
+		surname,
+		setSurname,
+		email,
+		setEmail,
+		phone,
+		setPhone,
+		address,
+		setAddress,
+	} = useZustand()
+
 	const fileRef = useRef<HTMLInputElement | null>(null)
 	const skillsRef = useRef<HTMLTextAreaElement | null>(null)
 	const aboutMeRef = useRef<HTMLTextAreaElement | null>(null)
@@ -53,7 +72,7 @@ const Form = () => {
 		else {
 			const myFile = e.dataTransfer.files[0]
 			const reader = new FileReader()
-			reader.onloadend = () => setFile(reader.result)
+			reader.onloadend = () => setImage(reader.result)
 			reader.readAsDataURL(myFile)
 		}
 	}
@@ -63,17 +82,17 @@ const Form = () => {
 		else {
 			const myFile = event.target.files[0]
 			const reader = new FileReader()
-			reader.onloadend = () => setFile(reader.result)
+			reader.onloadend = () => setImage(reader.result)
 			reader.readAsDataURL(myFile)
 		}
 	}
 
 	const addEducationClick = () => {
 		if (education.length > 0) {
-			setEducation((ed) => [
-				...ed,
+			setEducation([
+				...education,
 				{
-					id: ed[ed.length - 1].id + 1,
+					id: education[education.length - 1].id + 1,
 					qualification: '',
 				},
 			])
@@ -89,10 +108,10 @@ const Form = () => {
 
 	const addWorkPlaceClick = () => {
 		if (workPlace.length > 0) {
-			setWorkPlace((work) => [
-				...work,
+			setWorkPlace([
+				...workPlace,
 				{
-					id: work[work.length - 1].id + 1,
+					id: workPlace[workPlace.length - 1].id + 1,
 					position: '',
 					company: '',
 					description: '',
@@ -112,53 +131,15 @@ const Form = () => {
 
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault()
-		const obj: Record<string, FormFieldsValue[keyof FormFieldsValue]> = {}
-
-		FormData.forEach((_, i) => {
-			const ref = inputRefs.current[i].current
-
-			if (ref) {
-				const { value, name } = ref
-
-				if (name) {
-					obj[name] = value
-				}
-			}
-		})
-
-		if (skillsRef.current && skillsRef.current.value) {
-			obj.skills = skillsRef.current.value.split(',')
-		}
-
-		if (aboutMeRef.current && aboutMeRef.current.value) {
-			obj.aboutMe = aboutMeRef.current.value
-		}
-
-		obj.image = file
-		obj.education = education
-		obj.workPlace = workPlace
-
-		localStorage.setItem('form', JSON.stringify(obj))
+		console.log('Form submitted')
 		navigate('/choose-theme')
 	}
 
 	useEffect(() => {
-		if (localStorage.getItem('form')) {
-			if (confirm('У вас есть ранее сохраненные данные. Хотите продолжить?')) {
-				const obj = localStorage.getItem('form')
-				if (obj) setPreviousData(JSON.parse(obj))
-			} else {
-				localStorage.removeItem('form')
-			}
-		}
-	}, [])
-
-	useEffect(() => {
-		FormData.forEach((_, i) => {
-			const item = inputRefs.current[i].current
-
-			if (item && item.name) {
-				const attr = item.name as keyof Omit<
+		FormData.forEach((item, i) => {
+			const inputRef = inputRefs.current[i].current
+			if (inputRef && item.name) {
+				const fieldName = item.name as keyof Omit<
 					FormFieldsValue,
 					| 'color'
 					| 'image'
@@ -167,30 +148,28 @@ const Form = () => {
 					| 'skills'
 					| 'education'
 					| 'workPlace'
+					| 'drag'
 				>
-
-				item.value = previousData[attr]
+				const storeValue = {
+					name,
+					profession,
+					surname,
+					email,
+					phone,
+					address,
+				}[fieldName] as string | undefined
+				inputRef.value = storeValue ?? ''
 			}
 		})
 
-		if (skillsRef.current && previousData.skills) {
-			skillsRef.current.value = previousData.skills?.join()
+		if (skillsRef.current) {
+			skillsRef.current.value = skills?.join(',') || ''
 		}
 
-		if (aboutMeRef.current && previousData.aboutMe) {
-			aboutMeRef.current.value = previousData.aboutMe
+		if (aboutMeRef.current) {
+			aboutMeRef.current.value = aboutMe || ''
 		}
-
-		if (previousData.education?.length) {
-			setEducation(previousData.education)
-		}
-
-		if (previousData.workPlace?.length) {
-			setWorkPlace(previousData.workPlace)
-		}
-
-		if (previousData.image) setFile(previousData.image)
-	}, [inputRefs, previousData])
+	}, [name, profession, surname, email, phone, address, skills, aboutMe])
 
 	return (
 		<form
@@ -214,8 +193,8 @@ const Form = () => {
 					handleChange={handleFileChange}
 					className={s.input}
 					ref={fileRef}
-					file={file}
-					setFile={setFile}
+					file={image}
+					setFile={setImage}
 				/>
 			</div>
 
@@ -228,6 +207,29 @@ const Form = () => {
 						placeholder={item.placeholder}
 						type={item.type}
 						required
+						handleChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+							const fieldName = item.name as keyof Omit<
+								FormFieldsValue,
+								| 'color'
+								| 'image'
+								| 'colorTitle'
+								| 'aboutMe'
+								| 'skills'
+								| 'education'
+								| 'workPlace'
+								| 'drag'
+							>
+							const setters = {
+								name: setName,
+								profession: setProfession,
+								surname: setSurname,
+								email: setEmail,
+								phone: setPhone,
+								address: setAddress,
+							}
+							const setter = setters[fieldName]
+							if (setter) setter(e.target.value)
+						}}
 					/>
 				</div>
 			))}
@@ -237,6 +239,8 @@ const Form = () => {
 				placeholder='Опишите себя как можно подробнее'
 				rows={5}
 				ref={aboutMeRef}
+				value={aboutMe}
+				onChange={(e) => setAboutMe(e.target.value)}
 				required
 			></textarea>
 
@@ -245,6 +249,8 @@ const Form = () => {
 				placeholder="Через знак ',' перечислите какими умениями Вы обладаете"
 				rows={2}
 				ref={skillsRef}
+				value={skills?.join(',') || ''}
+				onChange={(e) => setSkills(e.target.value.split(',').map(s => s.trim()))}
 			></textarea>
 
 			<div className={s.addEducation} onClick={addEducationClick}>
