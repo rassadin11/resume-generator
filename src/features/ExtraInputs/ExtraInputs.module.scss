@@ -1,11 +1,21 @@
 .wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .flex {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.textarea {
+  grid-column: 1 / 10;
+  font-size: 18px;
+  resize: none;
+  border-radius: 10px;
+  border: 1px solid #b57dd4;
+  padding: 10px;
+  outline: none;
 }

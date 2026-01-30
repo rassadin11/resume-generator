@@ -16,7 +16,9 @@ const ExtraInputs = ({
     setCurrentValues(initialValues)
   }, [initialValues])
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     if (!currentValues) return
 
     setCurrentValues({
@@ -56,15 +58,26 @@ const ExtraInputs = ({
     <div className={s.flex}>
       {initialInputs.map(item => (
         <div className={s.wrapper} key={item.id}>
-          <Input
-            handleChange={handleChange}
-            handleBlur={handleBlur}
-            placeholder={item.placeholder}
-            name={item.name}
-            title={item.title}
-            type={item.type || 'text'}
-            required={item.required}
-          />
+          {item.isTextarea ? (
+            <textarea
+              rows={5}
+              className={s.textarea}
+              placeholder={item.placeholder}
+              onChange={handleChange}
+              name={item.name}
+              required={item.required}
+            />
+          ) : (
+            <Input
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              placeholder={item.placeholder}
+              name={item.name}
+              title={item.title}
+              type={item.type || 'text'}
+              required={item.required}
+            />
+          )}
         </div>
       ))}
       {!validDates && (

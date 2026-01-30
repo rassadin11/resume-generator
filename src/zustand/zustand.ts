@@ -20,6 +20,7 @@ export const useZustand = create<FormFieldsValue & FormFieldsActions>(
     workPlace: [] as IWorkPlace[],
     skills: [] as string[],
     drag: false,
+    colorPalette: undefined,
 
     // Actions
     setName: (name: string) => set({name}),
@@ -42,6 +43,7 @@ export const useZustand = create<FormFieldsValue & FormFieldsActions>(
         workPlace: state.workPlace.filter(item => item.id !== id),
       })),
     setSkills: (skills: string[]) => set({skills}),
+    setColorPalette: colorPalette => set({colorPalette}),
     setDrag: (drag: boolean) => set({drag}),
     setField: (
       field: keyof Omit<FormFieldsValue, 'color' | 'colorTitle'>,
@@ -61,6 +63,7 @@ export const useZustand = create<FormFieldsValue & FormFieldsActions>(
         education: [],
         workPlace: [],
         skills: [],
+        colorPalette: undefined,
       }),
   }),
 )

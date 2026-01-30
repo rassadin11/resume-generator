@@ -1,3 +1,5 @@
+import {palitra} from '../ResumeColors/ResumeColors.interfaces'
+
 export interface IEducation {
   id: number
   qualification: string
@@ -30,6 +32,7 @@ export interface FormFieldsValue {
   colorTitle?: string
   skills?: string[] | []
   drag?: boolean
+  colorPalette?: palitra
 }
 
 export interface FormFieldsActions {
@@ -46,6 +49,7 @@ export interface FormFieldsActions {
   setWorkPlace: (workPlace: IWorkPlace[]) => void
   setSkills: (skills: string[]) => void
   setDrag: (drag: boolean) => void
+  setColorPalette: (palette: palitra) => void
   setField: (
     field: keyof Omit<FormFieldsValue, 'color' | 'colorTitle'>,
     value: any,

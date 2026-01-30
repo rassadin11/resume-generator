@@ -1,18 +1,8 @@
 import ExtraInputs from '../ExtraInputs/ExtraInputs'
-import s from './Education.module.scss'
-import {initialEducationInputs} from '../ExtraInputs/EducationInputs'
+import s from './SingleInfoForm.module.scss'
 import {IEducation, IWorkPlace} from '../Form/Form.interfaces'
 import RemoveIcon from '../../assets/remove.svg?react'
-import {initialWorkInputs} from './SingleForm.types'
-
-interface ISingleInfoForm {
-  title: string
-  blocks: IEducation[] | IWorkPlace[]
-  setBlocks: any
-  initialBlockInputs:
-    | typeof initialEducationInputs
-    | typeof initialWorkInputs
-}
+import {ISingleInfoForm} from './SingleForm.types'
 
 const SingleInfoForm = ({
   title,

@@ -1,4 +1,8 @@
-import {IEducationInputs} from '../ExtraInputs/EducationInputs'
+import {
+  IEducationInputs,
+  initialEducationInputs,
+} from '../ExtraInputs/SingleInfoFormInputs'
+import {IEducation, IWorkPlace} from '../Form/Form.interfaces'
 
 export const initialWorkInputs: IEducationInputs[] = [
   {
@@ -21,6 +25,7 @@ export const initialWorkInputs: IEducationInputs[] = [
     name: 'description',
     title: 'Описание работы',
     required: true,
+    isTextarea: true,
   },
   {
     id: 3,
@@ -39,3 +44,12 @@ export const initialWorkInputs: IEducationInputs[] = [
     type: 'date',
   },
 ]
+
+export interface ISingleInfoForm {
+  title: string
+  blocks: IEducation[] | IWorkPlace[]
+  setBlocks: any
+  initialBlockInputs:
+    | typeof initialEducationInputs
+    | typeof initialWorkInputs
+}

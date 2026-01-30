@@ -6,16 +6,16 @@ import cn from 'classnames'
 import {IEducation, IWorkPlace} from '../Form/Form.interfaces'
 import EducationInfo from '../../entities/EducationInfo/EducationInfo'
 import WorkItem from '../../entities/WorkItem/WorkItem'
+import {useNavigate} from 'react-router-dom'
+import classNames from 'classnames'
 
 const Resume = forwardRef<HTMLDivElement, ResumeProps>(
-  ({data, colorInfo}, ref) => {
-    if (!colorInfo) {
-      return (
-        <div>
-          Что-то пошло не по плану. Вернись на главную страницу и
-          попробуй ввести данные снова.
-        </div>
-      )
+  ({data}, ref) => {
+    const navigate = useNavigate()
+
+    if (data.colorPalette === undefined) {
+      navigate('/')
+      return <></>
     }
 
     return (
@@ -24,49 +24,64 @@ const Resume = forwardRef<HTMLDivElement, ResumeProps>(
           className={s.wrapper}
           ref={ref}
           style={{
-            background: colorInfo.backgroundMainColor,
+            background: data.colorPalette.backgroundMainColor,
           }}
         >
           <aside
             className={s.sidebar}
             style={{
-              background: colorInfo.backgroundColor,
-              borderRight: '1px solid ' + colorInfo.borderSidebar,
+              background: data.colorPalette.backgroundColor,
+              borderRight:
+                '1px solid ' + data.colorPalette.borderSidebar,
             }}
           >
             <div
               className={s.sidebarInfo}
               style={{
-                color: colorInfo.color,
+                color: data.colorPalette.color,
               }}
             >
-              <p className={s.title}>Контакты</p>
+              <p className={s.title} contentEditable>
+                Контакты
+              </p>
               <p className={s.text}>Email &ndash; {data.email}</p>
-              <p className={s.text}>Телефон &ndash; {data.phone}</p>
-              <p className={s.text}>Адрес &ndash; {data.address}</p>
+              {data.phone ? (
+                <p className={s.text}>Телефон &ndash; {data.phone}</p>
+              ) : (
+                ''
+              )}
+              {data.address ? (
+                <p className={s.text}>Адрес &ndash; {data.address}</p>
+              ) : (
+                ''
+              )}
             </div>
-            {data.skills && data.skills.length > 0 && (
-              <div
-                className={s.sidebarInfo}
-                style={{
-                  color: colorInfo.color,
-                }}
-              >
-                <p className={s.title}>Умения</p>
-                <ul className={s.list}>
-                  {data.skills.map((item: string) => (
-                    <li key={item}>
-                      {item.trim()[0].toUpperCase() +
-                        item.trim().slice(1)}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
             <div
               className={s.sidebarInfo}
               style={{
-                color: colorInfo.color,
+                color: data.colorPalette.color,
+              }}
+            >
+              {data.skills && data.skills.length > 0 && (
+                <>
+                  <p className={s.title} contentEditable>
+                    Навыки
+                  </p>
+                  <ul className={s.list}>
+                    {data.skills.map((item: string) => (
+                      <li key={item}>
+                        {item.trim()[0].toUpperCase() +
+                          item.trim().slice(1)}
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </div>
+            <div
+              className={s.sidebarInfo}
+              style={{
+                color: data.colorPalette.color,
               }}
             >
               {data.education && data.education.length ? (
@@ -84,13 +99,14 @@ const Resume = forwardRef<HTMLDivElement, ResumeProps>(
           <main
             className={s.main}
             style={{
-              color: colorInfo.mainText,
+              color: data.colorPalette.mainText,
             }}
           >
             <header
               className={s.header}
               style={{
-                borderBottom: '1px solid ' + colorInfo.borderMain,
+                borderBottom:
+                  '1px solid ' + data.colorPalette.borderMain,
               }}
             >
               <div className={s.info}>
@@ -109,8 +125,12 @@ const Resume = forwardRef<HTMLDivElement, ResumeProps>(
                 ''
               )}
             </header>
-            <p className={cn(s.title, s.mainBlock)}>Обо мне</p>
-            <p className={s.text}>{data.aboutMe}</p>
+            <p className={cn(s.title, s.mainBlock)} contentEditable>
+              Обо мне
+            </p>
+            <p className={classNames(s.text, s.aboutMe)}>
+              {data.aboutMe}
+            </p>
             {data.workPlace && data.workPlace.length > 0 ? (
               <>
                 <p className={cn(s.title, s.mainBlock)}>
@@ -121,7 +141,9 @@ const Resume = forwardRef<HTMLDivElement, ResumeProps>(
                     data={item}
                     key={item.id}
                     color={
-                      colorInfo.dateColor ? colorInfo.dateColor : ''
+                      data.colorPalette?.dateColor
+                        ? data.colorPalette.dateColor
+                        : ''
                     }
                   />
                 ))}

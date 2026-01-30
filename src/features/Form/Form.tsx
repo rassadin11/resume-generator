@@ -5,10 +5,10 @@ import cn from 'classnames'
 import {FormFieldsValue} from './Form.interfaces'
 import {useZustand} from '../../zustand/zustand'
 import {FormData, FormItem} from './FormData'
-import {initialEducationInputs} from '../ExtraInputs/EducationInputs'
-import {initialWorkInputs} from '../Education/SingleForm.types'
+import {initialEducationInputs} from '../ExtraInputs/SingleInfoFormInputs'
+import {initialWorkInputs} from '../SingleInfoForm/SingleForm.types'
 import Input from '../../entities/Input/Input'
-import SingleInfoForm from '../Education/Education'
+import SingleInfoForm from '../SingleInfoForm/SingleInfoForm'
 import Button from '../../entities/Button/Button'
 import FileInput from '../FileInput/FileInput'
 
@@ -30,17 +30,11 @@ const Form = () => {
     setAboutMe,
     skills,
     setSkills,
-    name,
     setName,
-    profession,
     setProfession,
-    surname,
     setSurname,
-    email,
     setEmail,
-    phone,
     setPhone,
-    address,
     setAddress,
   } = useZustand()
 
@@ -148,7 +142,7 @@ const Form = () => {
         onDragLeave={e => handleDrop(e, false)}
         onDrop={e => handleDrop(e, false)}
       >
-        Drop your file here!
+        Загрузите ваше фото сюда!
       </div>
 
       <div className={`${s.formItem} ${s.first}`}>

@@ -1,19 +1,15 @@
 import Resume from '../../features/Resume/Resume'
 import Title from '../../entities/Title/Title'
 import s from './PreviewPage.module.scss'
-import {useLocation} from 'react-router-dom'
 import Button from '../../entities/Button/Button'
 import {useReactToPrint} from 'react-to-print'
 import {useEffect, useRef} from 'react'
-import {FormFieldsValue} from '../../features/Form/Form.interfaces'
-import {palitra} from '../../features/ResumeColors/ResumeColors.interfaces'
+import {useZustand} from '../../zustand/zustand'
 
 const PreviewPage = () => {
-  const location = useLocation()
-  const state = location.state as {
-    mainInfo: FormFieldsValue
-    colorInfo: palitra
-  }
+  const state = useZustand()
+
+  console.log(state)
 
   const resumeRef = useRef<HTMLDivElement>(null)
 
@@ -31,8 +27,8 @@ const PreviewPage = () => {
       <div
         className={s.background}
         style={
-          state?.colorInfo?.fon
-            ? {background: `${state.colorInfo.fon}`}
+          state?.colorPalette?.fon
+            ? {background: `${state.colorPalette.fon}`}
             : {}
         }
       ></div>
@@ -41,19 +37,15 @@ const PreviewPage = () => {
         <Title
           className={s.center}
           style={
-            state?.colorInfo?.color
-              ? {color: `${state.colorInfo.color}`}
+            state?.colorPalette?.color
+              ? {color: `${state.colorPalette.color}`}
               : {}
           }
         >
           Результат
         </Title>
         <div className={s.whiteBackground}></div>
-        <Resume
-          data={state.mainInfo}
-          colorInfo={state.colorInfo}
-          ref={resumeRef}
-        />
+        <Resume data={{...state}} ref={resumeRef} />
         <div className={s.button}>
           <Button color='white' onClick={generatePDF}>
             Сохранить
