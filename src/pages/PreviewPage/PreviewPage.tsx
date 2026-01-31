@@ -44,6 +44,7 @@ const PreviewPage = () => {
         >
           Результат
         </Title>
+        <p>Не нравятся заголовки? Нажми и напиши свой!</p>
         <div className={s.whiteBackground}></div>
         <Resume data={{...state}} ref={resumeRef} />
         <div className={s.button}>

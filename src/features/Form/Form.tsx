@@ -115,6 +115,7 @@ const Form = () => {
       | 'education'
       | 'workPlace'
       | 'drag'
+      | 'colorPalette'
     >
     const setters = {
       name: setName,
